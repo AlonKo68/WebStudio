@@ -149,10 +149,6 @@ img {
 .subscribe-desc {
     color: #FFF;
 }
-.benefits-item,
-.users-item {
-    width: calc((100% - 3 * 24px) / 4);
-}
 .users-review,
 .portfolio-captain,
 .menu-contacts-item {
@@ -167,6 +163,7 @@ img {
 }
 .hero-title,
 .subject,
+.benefits-captain,
 .modal-desc,
 .subscribe-btn,
 .form-btn {
@@ -374,11 +371,32 @@ img {
 /* benefits section */
 .benefits {
 }
+
 .benefits-list {
     display: flex;
-    gap: 24px;  
+    flex-wrap: wrap;
+    gap: 72px;
 }
-.benefits-item {
+.benefits-item:not(:last-child) {
+    margin-bottom: 72px;
+    /* width: 100%; */
+}
+@media only screen and (min-width: 768px) {
+    .benefits-list {
+        gap:72px 24px; 
+    }
+    .benefits-item {
+        width: calc((100% - 1 * 24px) / 2);
+    }
+}
+@media only screen and (min-width: 1158px) {
+.benefits-list {
+        gap: 24px;
+    }
+    .benefits-item {
+        width: calc((100% - 3 * 24px) / 4);
+        
+    }
 }
 .benefits-wrapper-icon {
     display: flex;
@@ -390,11 +408,20 @@ img {
     border-radius: 4px;
     border: 1px solid #8E8F99;
 }
+@media only screen and (max-width: 1157.98px) {
+    .benefits-wrapper-icon {
+        display: none;
+    }
+}
 .benefits-icon {
 }
 .benefits-captain {
-    /* margin: 8px 0;    */
     margin-bottom: 8px;
+}
+@media only screen and (min-width: 768px) {
+   .benefits-captain{
+        text-align: left;
+  }
 }
 .benefits-desc {
 }
@@ -407,13 +434,14 @@ img {
 }
 .users-list {
     display: flex;
+    flex-wrap: wrap;  
+    gap: 72px;
     border-radius: 0px 0px 4px 4px;
-    gap: 24px;
 }
 .users-item {
     display: flex;
     flex-direction: column;
-    
+   
     background-color: #FFF;
     border-radius: 0px 0px 4px 4px;
     
@@ -421,7 +449,26 @@ img {
     0px 1px 1px 0px rgba(46, 47, 66, 0.16), 
     0px 1px 6px 0px rgba(46, 47, 66, 0.08);   
 }
+@media only screen and (min-width: 768px) {
+    .users-list {
+        gap:64px 24px; 
+    }
+    .users-item {
+        width: calc((100% - 1 * 24px) / 2);
+    }
+}
+@media only screen and (min-width: 1158px) {
+.users-list {
+        gap: 24px;
+        flex-wrap: nowrap;
+    }
+    .users-item {
+        width: calc((100% - 3 * 24px) / 4);
+        
+    }
+}
 .users-avatar {
+    width: 100%;
 }
 .users-wrapper {
     padding: 32px 0px;
