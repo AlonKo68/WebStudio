@@ -26,17 +26,24 @@
 //     root.style.setProperty('--white', 'black')
 // }
 
+const img = new Image();
+img.fetchPriority = "high";
+img.src = "images/1_hero/img_mob@1x.jpg";
+
 // header
 const navLink = document.querySelectorAll('.nav-link, .menu-nav-link, .menu-contacts-link');
 navLink.forEach((link) => {
     link.addEventListener('mouseover', handler);
     link.addEventListener('mouseout', handler);
-    link.addEventListener('click', handler);
+    link.addEventListener('click', handlerClick);
     function handler() {
-        link.classList.toggle('active-js');
-        link.classList.toggle('active::after')
+        this.classList.toggle('active-js');
+        this.classList.toggle('active::after');
     }
 });
+function handlerClick() {
+    this.classList.remove('active::after');
+}
 
 //hero
 const btnHero = document.querySelector('.hero-btn');
@@ -48,11 +55,11 @@ function changeColor() {
 
 
 // modal window open/close 
-const modalWindow = document.querySelector('.backdrop');
-btnHero.addEventListener('click', handlerOpenCloseForm);
 function handlerOpenCloseForm() {
     modalWindow.classList.toggle('is-open');
 }
+const modalWindow = document.querySelector('.backdrop');
+btnHero.addEventListener('click', handlerOpenCloseForm);
 const btnFormClose = document.querySelector('.modal-btn');
 btnFormClose.addEventListener('click', handlerOpenCloseForm);
 
@@ -64,7 +71,7 @@ const mobileMenu = document.querySelector('.menu')
 const btnMenuOpen = document.querySelector('.menu-btn-open');
 btnMenuOpen.addEventListener('click', handlerOpenCloseMenu);
 const btnMenuClose = document.querySelector('.menu-btn-close');
-btnMenuClose.addEventListener('click', handlerOpenCloseMenu)
+btnMenuClose.addEventListener('click', handlerOpenCloseMenu);
 
 //benefits
 const benefitsIcons = document.querySelectorAll('.benefits-wrapper-icon');
@@ -78,7 +85,6 @@ benefitsIcons.forEach((icon) => {
 
 //footer
 const formSubscribe = document.querySelector('.form-subscribe');
-console.log(formSubscribe);
 formSubscribe.addEventListener('submit', submit);
 
 //modal window submit
@@ -86,14 +92,16 @@ const modalForm = document.querySelector('.modal-form');
 modalForm.addEventListener('submit', submit);
 function submit(evt) {
     evt.preventDefault();
-    console.log('submit');
-    console.dir(evt.currentTarget);
+    // console.log('submit');
+    // console.dir(evt.currentTarget);
 
     const formData = new FormData(evt.currentTarget);
-    console.log(formData);
+    // console.log(formData);
     const data = {};
     formData.forEach((value, key) => data[key] = value);
-    console.log(data);
+    // console.log(data);
+    const json = JSON.stringify(data);
+    console.log(json);
 }
 
 //mobile menu
