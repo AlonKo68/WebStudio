@@ -1,28 +1,43 @@
+const arrLinks = ['Studio', 'Portfolio', 'Contacts'];
 const refs = {
-  modalForm: document.querySelector('.modal-form'),
-  btnHero: document.querySelector('.hero-btn'),
-  btnMenuOpen: document.querySelector('.menu-btn-open'),
-  modalWindow: document.querySelector('.backdrop'),
   mobileMenu: document.querySelector('.menu'),
-  btnModalClose: document.querySelector('.modal-btn-close'),
+  mobileMenuList: document.querySelector('.menu-nav-list-js'),
+  btnMenuOpen: document.querySelector('.menu-btn-open'),
   btnMenuClose: document.querySelector('.menu-btn-close'),
+  menuLinks: document.querySelectorAll('.menu-nav-link'),
+  btnHero: document.querySelector('.hero-btn'),
+  modalWindow: document.querySelector('.backdrop'),
+  btnModalClose: document.querySelector('.modal-btn-close'),
+  modalForm: document.querySelector('.modal-form'),
 };
+function createMarkup(arr) {
+  return arr.map((item) => 
+    ` <li class=" menu-nav-item">
+        <a class="menu-nav-link" href="#${item.trim().toLowerCase()}" aria-label="go to ${item} site">
+          ${item}
+        </a>
+      </li>`
+  ).join('')
+}
+refs.mobileMenuList.insertAdjacentHTML('afterbegin', createMarkup(arrLinks));
 
 // === ОТКРЫТИЕ / ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА ===
-refs.btnHero.addEventListener('click', openModal);
-refs.btnModalClose.addEventListener('click', closeModal);
+refs.btnHero.addEventListener('click', handleOpenModal);
+refs.btnModalClose.addEventListener('click', handleCloseModal);
+
 refs.modalWindow.addEventListener('click', e => {
-  if (e.target === refs.modalWindow) closeModal();
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
+  if (e.target === refs.modalWindow) handleCloseModal();
 });
 
-function openModal() {
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') handleCloseModal();
+});
+
+function handleOpenModal() {
   refs.modalWindow.classList.add('is-open');
 }
 
-function closeModal() {
+function handleCloseModal() {
   refs.modalWindow.classList.remove('is-open');
 }
 
@@ -31,9 +46,16 @@ refs.btnMenuOpen.addEventListener('click', () => {
   refs.mobileMenu.classList.add('menu-js');
 });
 
-refs.btnMenuClose.addEventListener('click', () => {
+function handleCloseMenu () {
   refs.mobileMenu.classList.remove('menu-js');
-});
+}
+refs.btnMenuClose.addEventListener('click', handleCloseMenu);
+refs.mobileMenuList.addEventListener('click', e => {
+  if (e.target.classList.contains('menu-nav-link')) {
+    handleCloseMenu();
+  }
+})
+
 
 // === ОТПРАВКА ФОРМЫ ===
 refs.modalForm.addEventListener('submit', async e => {
