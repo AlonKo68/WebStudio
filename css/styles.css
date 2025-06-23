@@ -330,29 +330,19 @@ img {
 }
 
 /* hero section */
-.hero {
-  padding: 72px 0;
-  background-image: linear-gradient(
-      rgba(46, 47, 66, 0.7),
-      rgba(46, 47, 66, 0.7)
-    ),
-    url(../images/1_hero/img_mob@1x.webp);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-@media (min-resolution: 192dpi) {
   .hero {
+    padding: 112px 0;
     background-image: linear-gradient(
         rgba(46, 47, 66, 0.7),
         rgba(46, 47, 66, 0.7)
       ),
-      url(../images/1_hero/img_mob@2x.webp);
+      image-set(
+      url(../images/1_hero/img_mob@1x.webp) 1x,
+      url(../images/1_hero/img_mob@2x.webp) 2x);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
   }
-}
 @media only screen and (min-width: 768px) {
   .hero {
     padding: 112px 0;
@@ -360,24 +350,12 @@ img {
         rgba(46, 47, 66, 0.7),
         rgba(46, 47, 66, 0.7)
       ),
-      url(../images/1_hero/img_tab@1x.webp);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+       image-set(
+       url(../images/1_hero/img_tab@1x.webp) 1x,
+       url(../images/1_hero/img_tab@2x.webp) 2x);
   }
 }
-@media only screen and (min-width: 768px) and (min-resolution: 192dpi) {
-  .hero {
-    background-image: linear-gradient(
-        rgba(46, 47, 66, 0.7),
-        rgba(46, 47, 66, 0.7)
-      ),
-      url(../images/1_hero/img_tab@2x.webp);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
-}
+
 @media only screen and (min-width: 1158px) {
   .hero {
     padding: 188px 0;
@@ -385,22 +363,9 @@ img {
         rgba(46, 47, 66, 0.7),
         rgba(46, 47, 66, 0.7)
       ),
-      url(../images/1_hero/img-desk@1x.webp);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
-}
-@media only screen and (min-width: 1588px) and (min-resolution: 192dpi) {
-  .hero {
-    background-image: linear-gradient(
-        rgba(46, 47, 66, 0.7),
-        rgba(46, 47, 66, 0.7)
-      ),
-      url(../images/1_hero/img_desk@2x.webp);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+       image-set(
+      url(../images/1_hero/img_desk@1x.webp) 1x,
+      url(../images/1_hero/img_desk@2x.webp) 2x);
   }
 }
 .hero-container {

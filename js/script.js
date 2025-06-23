@@ -1,8 +1,3 @@
-const img = new Image();
-img.fetchPriority = "high";
-img.src = "images/1_hero/img_mob@1x.jpg";
-
-// header
 const refs = {
   modalForm: document.querySelector('.modal-form'),
   btnHero: document.querySelector('.hero-btn'),
@@ -67,9 +62,6 @@ refs.modalForm.addEventListener('submit', async e => {
   }
 });
 
-//footer
-const formSubscribe = document.querySelector('.form-subscribe');
-formSubscribe.addEventListener('submit', submit);
 
 
 
