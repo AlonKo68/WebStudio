@@ -3,78 +3,73 @@ img.fetchPriority = "high";
 img.src = "images/1_hero/img_mob@1x.jpg";
 
 // header
-const navLink = document.querySelectorAll('.nav-link, .menu-nav-link, .menu-contacts-link');
-navLink.forEach((link) => {
-    link.addEventListener('mouseover', handler);
-    link.addEventListener('mouseout', handler);
-    link.addEventListener('click', handlerClick);
-    function handler() {
-        this.classList.toggle('active-js');
-        this.classList.toggle('active::after');
-    }
+const refs = {
+  modalForm: document.querySelector('.modal-form'),
+  btnHero: document.querySelector('.hero-btn'),
+  btnMenuOpen: document.querySelector('.menu-btn-open'),
+  modalWindow: document.querySelector('.backdrop'),
+  mobileMenu: document.querySelector('.menu'),
+  btnModalClose: document.querySelector('.modal-btn-close'),
+  btnMenuClose: document.querySelector('.menu-btn-close'),
+};
+
+// === ОТКРЫТИЕ / ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА ===
+refs.btnHero.addEventListener('click', openModal);
+refs.btnModalClose.addEventListener('click', closeModal);
+refs.modalWindow.addEventListener('click', e => {
+  if (e.target === refs.modalWindow) closeModal();
 });
-function handlerClick() {
-    this.classList.remove('active::after');
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+function openModal() {
+  refs.modalWindow.classList.add('is-open');
 }
 
-//hero
-const btnHero = document.querySelector('.hero-btn');
-btnHero.addEventListener('mouseover', changeColor);
-btnHero.addEventListener('mouseout', changeColor);
-function changeColor() {
-    btnHero.classList.toggle('btn-js')
+function closeModal() {
+  refs.modalWindow.classList.remove('is-open');
 }
 
+// === ОТКРЫТИЕ / ЗАКРЫТИЕ МОБИЛЬНОГО МЕНЮ ===
+refs.btnMenuOpen.addEventListener('click', () => {
+  refs.mobileMenu.classList.add('menu-js');
+});
 
-// modal window open/close 
-function handlerOpenCloseForm() {
-    modalWindow.classList.toggle('is-open');
-}
-const modalWindow = document.querySelector('.backdrop');
-btnHero.addEventListener('click', handlerOpenCloseForm);
-const btnFormClose = document.querySelector('.modal-btn');
-btnFormClose.addEventListener('click', handlerOpenCloseForm);
+refs.btnMenuClose.addEventListener('click', () => {
+  refs.mobileMenu.classList.remove('menu-js');
+});
 
-//mobile menu open/close
-function handlerOpenCloseMenu() {
-    mobileMenu.classList.toggle('menu-js');
-}
-const mobileMenu = document.querySelector('.menu')
-const btnMenuOpen = document.querySelector('.menu-btn-open');
-btnMenuOpen.addEventListener('click', handlerOpenCloseMenu);
-const btnMenuClose = document.querySelector('.menu-btn-close');
-btnMenuClose.addEventListener('click', handlerOpenCloseMenu);
+// === ОТПРАВКА ФОРМЫ ===
+refs.modalForm.addEventListener('submit', async e => {
+  e.preventDefault();
 
-//benefits
-const benefitsIcons = document.querySelectorAll('.benefits-wrapper-icon');
-benefitsIcons.forEach((icon) => {
-    icon.addEventListener('mouseover', changeBorder);
-    icon.addEventListener('mouseout', changeBorder);
-    function changeBorder() {
-        icon.classList.toggle('benefits-icon-js');
-    }
-})
+  const formData = new FormData(e.currentTarget);
+  const data = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await fetch('https://your-server-endpoint.com/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+
+    const result = await response.json();
+    console.log('Успешно отправлено:', result);
+
+    refs.modalForm.reset();
+    closeModal(); // Закрываем модалку после успешной отправки
+  } catch (error) {
+    console.error('Ошибка при отправке формы:', error);
+    alert('Произошла ошибка. Попробуйте ещё раз.');
+  }
+});
 
 //footer
 const formSubscribe = document.querySelector('.form-subscribe');
 formSubscribe.addEventListener('submit', submit);
 
-//modal window submit
-const modalForm = document.querySelector('.modal-form');
-modalForm.addEventListener('submit', submit);
-function submit(evt) {
-    evt.preventDefault();
-    // console.log('submit');
-    // console.dir(evt.currentTarget);
 
-    const formData = new FormData(evt.currentTarget);
-    // console.log(formData);
-    const data = {};
-    formData.forEach((value, key) => data[key] = value);
-    // console.log(data);
-    const json = JSON.stringify(data);
-    console.log(json);
-}
-
-//mobile menu
 
