@@ -1,5 +1,6 @@
 const arrLinks = ['Studio', 'Portfolio', 'Contacts'];
 const refs = {
+  navLinks: document.querySelectorAll('.nav-link'),
   mobileMenu: document.querySelector('.menu'),
   mobileMenuList: document.querySelector('.menu-nav-list-js'),
   btnMenuOpen: document.querySelector('.menu-btn-open'),
@@ -10,16 +11,31 @@ const refs = {
   btnModalClose: document.querySelector('.modal-btn-close'),
   modalForm: document.querySelector('.modal-form'),
 };
+
+// Создаем разметку для мобильного меню
 function createMarkup(arr) {
   return arr.map((item) => 
     ` <li class=" menu-nav-item">
-        <a class="menu-nav-link" href="#${item.trim().toLowerCase()}" aria-label="go to ${item} site">
-          ${item}
-        </a>
-      </li>`
-  ).join('')
+  <a class="menu-nav-link" href="#${item.trim().toLowerCase()}" aria-label="go to ${item} site">
+  ${item}
+  </a>
+  </li>`
+).join('')
 }
 refs.mobileMenuList.insertAdjacentHTML('afterbegin', createMarkup(arrLinks));
+
+// header
+refs.navLinks.forEach((link) => {
+  link.addEventListener('mouseover', (e) => {
+    e.currentTarget.classList.add('active');
+  });
+  link.addEventListener('mouseout', handle);
+  link.addEventListener('click', handle);
+ function handle(e) {
+    e.currentTarget.classList.remove('active');
+  };
+});
+
 
 // === ОТКРЫТИЕ / ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА ===
 refs.btnHero.addEventListener('click', handleOpenModal);
@@ -35,10 +51,12 @@ document.addEventListener('keydown', e => {
 
 function handleOpenModal() {
   refs.modalWindow.classList.add('is-open');
+  document.body.classList.add('on-scroll'); // Блокируем прокрутку страницы
 }
 
 function handleCloseModal() {
   refs.modalWindow.classList.remove('is-open');
+  document.body.classList.remove('js-on-scroll'); // Разблокируем прокрутку страницы
 }
 
 // === ОТКРЫТИЕ / ЗАКРЫТИЕ МОБИЛЬНОГО МЕНЮ ===
@@ -83,7 +101,6 @@ refs.modalForm.addEventListener('submit', async e => {
     alert('Произошла ошибка. Попробуйте ещё раз.');
   }
 });
-
 
 
 
